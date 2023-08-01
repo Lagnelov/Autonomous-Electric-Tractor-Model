@@ -4,23 +4,19 @@ n=1;
 %percipitation table
 Q_pTable=readtable('Percipitation.xlsx');
  Q_pTable=Q_pTable{:,:};
- %table over variable charger powers, if used
-VariableChargerTable=readtable('SolMatlabRev.xlsx');
-VariableChargerPower=VariableChargerTable{:,:};
  
  %Inputs, static
 Weather_crit=3; %criteria for workability threshold, 3=deToro & standard
-FieldEff=0.8;
+FieldEff=0.8; %Field efficiency, i.e how much of the working width can be effetively used. 0.8 is a standard taken from Witney (1988)
 v_field =5; %average speed on field, in km/h
-ForceCorrVar=0.85; %Constant to adjust the field forces for operations. ASAE (2000) are ~15% too high.
-ChangeNo=1;% Number of battery changing stations
-ChargerVariableChoice=2; %=1 if variable charger power, =2 if constant charger power (=Charger). 2 is standard.
+ForceCorrVar=0.85; %Constant to adjust the field forces for operations. Force equations used from ASAE(2000) are ~15% too high.
+ChangeNo=1;% Number of battery changing stations for BES.
 EOL=0.8; %At which fraction the battery is "spent" and should be replaced
-BatteryReplacement=0;
+BatteryReplacement=0; %Initial numbers of battery replacements. = is standard. Ticks up in simulation.
 CyclesIn=0; % Number of cycles at start of model, activated in the model. Only relevant for batteries.
-FailRate=29700000; %297; %Rate-of-failure, calculated as 1/FailRate. If no ROF, extremly high number.
+FailRate=29700000; %297; %Rate-of-failure (ROF), calculated as 1/FailRate. If no ROF, extremly high number.
 Mass=10027; % mass per vehicle in kg. 3027 is normal for 50kW BEV without batteries, +10 kg/kWh. Diesel 250 kW is 10,800
-%Soil=3; %Soil: 1- sandy loam, 2-loam, 3-clay loam
+%Soil=3; %Soil type: 1- sandy loam, 2-loam, 3-clay loam
 
 if Mass>5000
     Compaction=1;
