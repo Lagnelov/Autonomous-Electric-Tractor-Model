@@ -15,7 +15,7 @@ EOL=0.8; %At which fraction the battery is "spent" and should be replaced
 BatteryReplacement=0; %Initial numbers of battery replacements. = is standard. Ticks up in simulation.
 CyclesIn=0; % Number of cycles at start of model, activated in the model. Only relevant for batteries.
 FailRate=29700000; %297; %Rate-of-failure (ROF), calculated as 1/FailRate. If no ROF, extremly high number.
-Mass=10027; % mass per vehicle in kg. 3027 is normal for 50kW BEV without batteries, +10 kg/kWh. Diesel 250 kW is 10,800
+Mass=10550; % mass per vehicle in kg. 3027 is normal for 50kW BEV without batteries, +10 kg/kWh. Diesel 250 kW is 10,800
 %Soil=3; %Soil type: 1- sandy loam, 2-loam, 3-clay loam
 
 if Mass>5000
@@ -40,15 +40,15 @@ Fuel=3; % 1=CC, 2=BES, 3=Diesel, 4=H2
 
 %Inputs, variable 
 for TractorNo=[1] %Number of tractors
-    for Power=[200] %Vehicle rated power, kW (PV)
-        for Charger=30345 %Charger power, kW (Diesel= 30345 kW, H2=1000 kW). If variable, base load.
-           for Battery=[4684] %Battery energy content, kWh (Diesel(50)= 1315 kWh, Diesel(250)=4684kWh, H2=323 kWh)
+    for Power=[190] %Vehicle rated power, kW (PV)
+        for Charger=30340 %Charger power, kW (Diesel= 30345 kW, H2=1000 kW). If variable, base load.
+           for Battery=[537] %Battery energy content, kWh (Diesel(50)= 1315 kWh, Diesel(250)=4684kWh, H2=323 kWh)
               for BatteryNo=1 %Number of extra batteries. Only relevant for BES, else=0.
                for ChargerNo=1 %Number of charger stations
                    for DField=0% static distance from farm to field, 0=en standardmatris
                       for Soil= 3 %[1 2 3] % soil type  1=sandy loam, 2= loam, 3= clay loam
                           
-                           for Year=20%:1:30 %year, start 1989-2018 (1=1989, 2=1990,  30=2018 etc)(31=Gotland 2016)                       
+                           for Year=25:1:30 %year, start 1989-2018 (1=1989, 2=1990,  30=2018 etc)(31=Gotland 2016)                       
                     
                        
         %part that changes C-rate (and rate of degradation) depending on charger/battery ratio
@@ -79,8 +79,8 @@ for TractorNo=[1] %Number of tractors
         Trepair=T_repair (end);
         Qwaitavg=Q_wait_avg(end);
         ChargeNoResult=ChargeNo(end);
-        Rest=OperatorRestTime(end);
-        Prel_Timeliness=Timeliness(end,1:24);
+        Rest=T_rest(end);
+   
           
         %result presentation
         Result(n,:)=[Fuel Year TractorNo Power Charger Battery BatteryNo ChargerNo DField Days Energy1 Qwaitavg Ttransport Tweather Twork T_C T_Q Trepair Rest Time ChargeNoResult WorkingHours];    
